@@ -1,0 +1,189 @@
+<!-- VAI Settings Template -->
+<div class="vai-settings">
+    <h2>VAI Settings</h2>
+    
+    <div class="form-group">
+        <label for="vai-enabled">Enable VAI</label>
+        <input type="checkbox" id="vai-enabled" name="enabled" checked>
+        <div class="hint">Enable or disable the VAI voice control system</div>
+    </div>
+    
+    <div class="form-group">
+        <label for="vai-push-to-talk">Push-to-Talk Key</label>
+        <input type="text" id="vai-push-to-talk" name="pushToTalkKey" value="Space" maxlength="20">
+        <div class="hint">Key to hold while speaking commands</div>
+    </div>
+    
+    <div class="form-group">
+        <label for="vai-voice-rate">Voice Rate</label>
+        <input type="range" id="vai-voice-rate" name="voiceRate" min="0.5" max="2.0" step="0.1" value="1.0">
+        <span id="vai-voice-rate-value">1.0</span>
+        <div class="hint">Speed of text-to-speech feedback</div>
+    </div>
+    
+    <div class="form-group">
+        <label for="vai-confidence">Confidence Threshold</label>
+        <input type="range" id="vai-confidence" name="confidenceThreshold" min="0.1" max="1.0" step="0.1" value="0.8">
+        <span id="vai-confidence-value">0.8</span>
+        <div class="hint">Minimum confidence level for command recognition</div>
+    </div>
+    
+    <div class="form-group">
+        <label for="vai-llm-provider">AI Provider</label>
+        <select id="vai-llm-provider" name="llmProvider">
+            <option value="none">None (Basic mode only)</option>
+            <option value="openai">OpenAI GPT</option>
+            <option value="claude">Anthropic Claude</option>
+            <option value="gemini">Google Gemini</option>
+        </select>
+        <div class="hint">Choose your preferred AI provider for complex command interpretation</div>
+    </div>
+    
+    <div class="form-group">
+        <label for="vai-llm-api-key">AI API Key</label>
+        <input type="password" id="vai-llm-api-key" name="llmApiKey" placeholder="Enter your API key">
+        <div class="hint">Your API key for the selected AI provider</div>
+    </div>
+    
+    <div class="form-group">
+        <button type="button" class="button" id="vai-test-microphone">Test Microphone</button>
+        <button type="button" class="button" id="vai-test-tts">Test TTS</button>
+        <button type="button" class="button" id="vai-test-llm">Test AI Connection</button>
+    </div>
+    
+    <div class="form-group">
+        <button type="button" class="button" id="vai-save-settings">Save Settings</button>
+        <button type="button" class="button secondary" id="vai-reset-settings">Reset to Defaults</button>
+    </div>
+    
+    <div class="form-group">
+        <button type="button" class="button secondary" id="vai-show-help">Show Help</button>
+        <button type="button" class="button secondary" id="vai-show-debug">Show Debug Info</button>
+    </div>
+</div>
+
+<script>
+// Settings form handling
+document.addEventListener('DOMContentLoaded', function() {
+    // Update range value displays
+    const voiceRateRange = document.getElementById('vai-voice-rate');
+    const voiceRateValue = document.getElementById('vai-voice-rate-value');
+    const confidenceRange = document.getElementById('vai-confidence');
+    const confidenceValue = document.getElementById('vai-confidence-value');
+    
+    voiceRateRange.addEventListener('input', function() {
+        voiceRateValue.textContent = this.value;
+    });
+    
+    confidenceRange.addEventListener('input', function() {
+        confidenceValue.textContent = this.value;
+    });
+    
+    // Test buttons
+    document.getElementById('vai-test-microphone').addEventListener('click', function() {
+        if (window.VAI && window.VAI.speechRecognition) {
+            window.VAI.speechRecognition.testMicrophone().then(success => {
+                alert(success ? 'Microphone test successful!' : 'Microphone test failed!');
+            });
+        }
+    });
+    
+    document.getElementById('vai-test-tts').addEventListener('click', function() {
+        if (window.VAI && window.VAI.ttsManager) {
+            window.VAI.ttsManager.testTTS().then(success => {
+                alert(success ? 'TTS test successful!' : 'TTS test failed!');
+            });
+        }
+    });
+    
+    document.getElementById('vai-test-llm').addEventListener('click', function() {
+        if (window.VAI && window.VAI.llmIntegration) {
+            window.VAI.llmIntegration.testConnection().then(success => {
+                alert(success ? 'AI connection test successful!' : 'AI connection test failed!');
+            });
+        }
+    });
+    
+    // Save settings
+    document.getElementById('vai-save-settings').addEventListener('click', function() {
+        const settings = {
+            enabled: document.getElementById('vai-enabled').checked,
+            pushToTalkKey: document.getElementById('vai-push-to-talk').value,
+            voiceRate: parseFloat(document.getElementById('vai-voice-rate').value),
+            confidenceThreshold: parseFloat(document.getElementById('vai-confidence').value),
+            llmProvider: document.getElementById('vai-llm-provider').value,
+            llmApiKey: document.getElementById('vai-llm-api-key').value
+        };
+        
+        // Save to Foundry VTT settings
+        Object.keys(settings).forEach(key => {
+            game.settings.set('vai', key, settings[key]);
+        });
+        
+        alert('Settings saved successfully!');
+    });
+    
+    // Reset settings
+    document.getElementById('vai-reset-settings').addEventListener('click', function() {
+        if (confirm('Are you sure you want to reset all settings to defaults?')) {
+            document.getElementById('vai-enabled').checked = true;
+            document.getElementById('vai-push-to-talk').value = 'Space';
+            document.getElementById('vai-voice-rate').value = '1.0';
+            document.getElementById('vai-voice-rate-value').textContent = '1.0';
+            document.getElementById('vai-confidence').value = '0.8';
+            document.getElementById('vai-confidence-value').textContent = '0.8';
+            document.getElementById('vai-llm-provider').value = 'none';
+            document.getElementById('vai-llm-api-key').value = '';
+        }
+    });
+    
+    // Show help
+    document.getElementById('vai-show-help').addEventListener('click', function() {
+        if (window.VAI) {
+            const commands = window.VAI.actionExecutor.getAvailableCommands();
+            let helpText = 'Available VAI Commands:\n\n';
+            
+            commands.forEach(cmd => {
+                helpText += `${cmd.action}:\n`;
+                cmd.examples.forEach(example => {
+                    helpText += `  - ${example}\n`;
+                });
+                helpText += '\n';
+            });
+            
+            alert(helpText);
+        }
+    });
+    
+    // Show debug info
+    document.getElementById('vai-show-debug').addEventListener('click', function() {
+        if (window.VAI) {
+            const status = window.VAI.getStatus();
+            const debugText = `VAI Debug Information:\n\n` +
+                `Initialized: ${status.initialized}\n` +
+                `Enabled: ${status.enabled}\n` +
+                `Listening: ${status.listening}\n` +
+                `Compatibility: ${status.compatibility}\n\n` +
+                `Settings:\n` +
+                `Push-to-Talk Key: ${status.settings.pushToTalkKey}\n` +
+                `AI Provider: ${status.settings.llmProvider}\n` +
+                `Voice Rate: ${status.settings.voiceRate}\n` +
+                `Confidence Threshold: ${status.settings.confidenceThreshold}`;
+            
+            alert(debugText);
+        }
+    });
+    
+    // Load current settings
+    if (game.settings) {
+        document.getElementById('vai-enabled').checked = game.settings.get('vai', 'enabled') !== false;
+        document.getElementById('vai-push-to-talk').value = game.settings.get('vai', 'pushToTalkKey') || 'Space';
+        document.getElementById('vai-voice-rate').value = game.settings.get('vai', 'voiceRate') || 1.0;
+        document.getElementById('vai-voice-rate-value').textContent = game.settings.get('vai', 'voiceRate') || 1.0;
+        document.getElementById('vai-confidence').value = game.settings.get('vai', 'confidenceThreshold') || 0.8;
+        document.getElementById('vai-confidence-value').textContent = game.settings.get('vai', 'confidenceThreshold') || 0.8;
+        document.getElementById('vai-llm-provider').value = game.settings.get('vai', 'llmProvider') || 'none';
+        document.getElementById('vai-llm-api-key').value = game.settings.get('vai', 'llmApiKey') || '';
+    }
+});
+</script> 

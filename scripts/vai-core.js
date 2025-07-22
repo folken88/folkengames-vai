@@ -429,6 +429,19 @@ Hooks.once('init', () => {
     window.VAI = new VAICore();
 });
 
+// Initialize VAI when game is ready
+Hooks.once('ready', async () => {
+    console.log('VAI: Game ready, initializing VAI system...');
+    if (window.VAI) {
+        try {
+            await window.VAI.initialize();
+            console.log('VAI: System initialization complete');
+        } catch (error) {
+            console.error('VAI: Failed to initialize system:', error);
+        }
+    }
+});
+
 // Cleanup on module unload
 Hooks.once('unload', () => {
     if (window.VAI) {

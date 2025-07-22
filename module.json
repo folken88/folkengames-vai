@@ -13,7 +13,10 @@
         "scripts/intent-parser.js",
         "scripts/action-executor.js",
         "scripts/tts-manager.js",
-        "scripts/llm-integration.js"
+        "scripts/llm-integration.js",
+        "scripts/context-manager.js",
+        "scripts/learning-system.js",
+        "scripts/character-manager.js"
     ],
     "styles": ["styles/vai.css"],
     "languages": [

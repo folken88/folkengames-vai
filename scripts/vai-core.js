@@ -63,86 +63,9 @@ class VAICore {
      * Initialize module settings
      */
     async initializeSettings() {
-        // Register settings if not already registered
-        if (!game.settings.settings.has('folkengames-vai.pushToTalkKey')) {
-            game.settings.register('folkengames-vai', 'pushToTalkKey', {
-                name: 'Push-to-Talk Key',
-                hint: 'Key to hold while speaking commands',
-                scope: 'client',
-                config: true,
-                type: String,
-                default: 'Space',
-                onChange: (value) => this.updatePushToTalkKey(value)
-            });
-        }
-
-        if (!game.settings.settings.has('folkengames-vai.enabled')) {
-            game.settings.register('folkengames-vai', 'enabled', {
-                name: 'Enable VAI',
-                hint: 'Enable or disable the VAI system',
-                scope: 'client',
-                config: true,
-                type: Boolean,
-                default: true,
-                onChange: (value) => this.setEnabled(value)
-            });
-        }
-
-        if (!game.settings.settings.has('folkengames-vai.llmProvider')) {
-            game.settings.register('folkengames-vai', 'llmProvider', {
-                name: 'AI Provider',
-                hint: 'Choose your preferred AI provider',
-                scope: 'client',
-                config: true,
-                type: String,
-                choices: {
-                    'openai': 'OpenAI GPT',
-                    'claude': 'Anthropic Claude',
-                    'gemini': 'Google Gemini',
-                    'none': 'None (Basic mode only)'
-                },
-                default: 'none',
-                onChange: (value) => this.updateLLMProvider(value)
-            });
-        }
-
-        if (!game.settings.settings.has('folkengames-vai.llmApiKey')) {
-            game.settings.register('folkengames-vai', 'llmApiKey', {
-                name: 'AI API Key',
-                hint: 'Your API key for the selected AI provider',
-                scope: 'client',
-                config: true,
-                type: String,
-                default: '',
-                onChange: (value) => this.updateLLMApiKey(value)
-            });
-        }
-
-        if (!game.settings.settings.has('folkengames-vai.voiceRate')) {
-            game.settings.register('folkengames-vai', 'voiceRate', {
-                name: 'Voice Rate',
-                hint: 'Speed of text-to-speech feedback',
-                scope: 'client',
-                config: true,
-                type: Number,
-                range: { min: 0.5, max: 2.0, step: 0.1 },
-                default: 1.0,
-                onChange: (value) => this.updateVoiceRate(value)
-            });
-        }
-
-        if (!game.settings.settings.has('folkengames-vai.confidenceThreshold')) {
-            game.settings.register('folkengames-vai', 'confidenceThreshold', {
-                name: 'Confidence Threshold',
-                hint: 'Minimum confidence level for command recognition',
-                scope: 'client',
-                config: true,
-                type: Number,
-                range: { min: 0.1, max: 1.0, step: 0.1 },
-                default: 0.8,
-                onChange: (value) => this.updateConfidenceThreshold(value)
-            });
-        }
+        // Settings are now registered in the init hook
+        // This method is kept for future use if needed
+        console.log('VAI: Settings initialization complete');
     }
 
     /**
@@ -426,6 +349,70 @@ class VAICore {
 // Initialize VAI when module is loaded
 Hooks.once('init', () => {
     console.log('VAI: Module loaded');
+    
+    // Register settings immediately
+    game.settings.register('folkengames-vai', 'pushToTalkKey', {
+        name: 'Push-to-Talk Key',
+        hint: 'Key to hold while speaking commands',
+        scope: 'client',
+        config: true,
+        type: String,
+        default: 'Space'
+    });
+
+    game.settings.register('folkengames-vai', 'enabled', {
+        name: 'Enable VAI',
+        hint: 'Enable or disable the VAI system',
+        scope: 'client',
+        config: true,
+        type: Boolean,
+        default: true
+    });
+
+    game.settings.register('folkengames-vai', 'llmProvider', {
+        name: 'AI Provider',
+        hint: 'Choose your preferred AI provider',
+        scope: 'client',
+        config: true,
+        type: String,
+        choices: {
+            'openai': 'OpenAI GPT',
+            'claude': 'Anthropic Claude',
+            'gemini': 'Google Gemini',
+            'none': 'None (Basic mode only)'
+        },
+        default: 'none'
+    });
+
+    game.settings.register('folkengames-vai', 'llmApiKey', {
+        name: 'AI API Key',
+        hint: 'Your API key for the selected AI provider',
+        scope: 'client',
+        config: true,
+        type: String,
+        default: ''
+    });
+
+    game.settings.register('folkengames-vai', 'voiceRate', {
+        name: 'Voice Rate',
+        hint: 'Speed of text-to-speech feedback',
+        scope: 'client',
+        config: true,
+        type: Number,
+        range: { min: 0.5, max: 2.0, step: 0.1 },
+        default: 1.0
+    });
+
+    game.settings.register('folkengames-vai', 'confidenceThreshold', {
+        name: 'Confidence Threshold',
+        hint: 'Minimum confidence level for command recognition',
+        scope: 'client',
+        config: true,
+        type: Number,
+        range: { min: 0.1, max: 1.0, step: 0.1 },
+        default: 0.8
+    });
+    
     window.VAI = new VAICore();
 });
 

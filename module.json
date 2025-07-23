@@ -7,7 +7,15 @@
     "minimumCoreVersion": "11",
     "compatibleCoreVersion": "11",
     "scripts": [
-        "scripts/vai-core.js"
+        "scripts/vai-core.js",
+        "scripts/speech-recognition.js",
+        "scripts/intent-parser.js",
+        "scripts/action-executor.js",
+        "scripts/tts-manager.js",
+        "scripts/llm-integration.js",
+        "scripts/context-manager.js",
+        "scripts/learning-system.js",
+        "scripts/character-manager.js"
     ],
     "styles": ["styles/vai.css"],
     "languages": [

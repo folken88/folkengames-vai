@@ -361,16 +361,16 @@ Hooks.once('ready', async () => {
         game.settings.register('folkengames-vai', 'pushToTalkKey', {
             name: 'Push-to-Talk Key',
             hint: 'Key to hold while speaking commands',
-            scope: 'client',
+            scope: 'world',
             config: true,
             type: String,
-            default: 'Space'
+            default: 'V'
         });
 
         game.settings.register('folkengames-vai', 'enabled', {
             name: 'Enable VAI',
             hint: 'Enable or disable the VAI system',
-            scope: 'client',
+            scope: 'world',
             config: true,
             type: Boolean,
             default: true
@@ -379,7 +379,7 @@ Hooks.once('ready', async () => {
         game.settings.register('folkengames-vai', 'llmProvider', {
             name: 'AI Provider',
             hint: 'Choose your preferred AI provider',
-            scope: 'client',
+            scope: 'world',
             config: true,
             type: String,
             choices: {
@@ -394,7 +394,7 @@ Hooks.once('ready', async () => {
         game.settings.register('folkengames-vai', 'llmApiKey', {
             name: 'AI API Key',
             hint: 'Your API key for the selected AI provider',
-            scope: 'client',
+            scope: 'world',
             config: true,
             type: String,
             default: ''
@@ -403,7 +403,7 @@ Hooks.once('ready', async () => {
         game.settings.register('folkengames-vai', 'voiceRate', {
             name: 'Voice Rate',
             hint: 'Speed of text-to-speech feedback',
-            scope: 'client',
+            scope: 'world',
             config: true,
             type: Number,
             range: { min: 0.5, max: 2.0, step: 0.1 },
@@ -413,7 +413,7 @@ Hooks.once('ready', async () => {
         game.settings.register('folkengames-vai', 'confidenceThreshold', {
             name: 'Confidence Threshold',
             hint: 'Minimum confidence level for command recognition',
-            scope: 'client',
+            scope: 'world',
             config: true,
             type: Number,
             range: { min: 0.1, max: 1.0, step: 0.1 },

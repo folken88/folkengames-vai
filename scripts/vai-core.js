@@ -46,6 +46,9 @@ class VAICore {
                 throw new Error('System compatibility check failed');
             }
             
+            // Setup event listeners
+            this.setupEventListeners();
+            
             this.isInitialized = true;
             console.log('VAI: Core system initialized successfully');
             
@@ -99,12 +102,19 @@ class VAICore {
     setupEventListeners() {
         // Listen for push-to-talk key
         document.addEventListener('keydown', (event) => {
-            if (!this.isEnabled || !this.isInitialized) return;
+            console.log('VAI: Key pressed:', event.code, 'Enabled:', this.isEnabled, 'Initialized:', this.isInitialized);
+            
+            if (!this.isEnabled || !this.isInitialized) {
+                console.log('VAI: Module not ready - enabled:', this.isEnabled, 'initialized:', this.isInitialized);
+                return;
+            }
             
             const pushToTalkKey = game.settings.get('folkengames-vai', 'pushToTalkKey');
-            if (event.code === `Key${pushToTalkKey.toUpperCase()}` || 
-                event.code === pushToTalkKey) {
+            console.log('VAI: Key pressed:', event.code, 'Expected:', `Key${pushToTalkKey.toUpperCase()}`);
+            
+            if (event.code === `Key${pushToTalkKey.toUpperCase()}`) {
                 event.preventDefault();
+                console.log('VAI: Starting listening...');
                 this.startListening();
             }
         });
@@ -113,18 +123,14 @@ class VAICore {
             if (!this.isEnabled || !this.isInitialized) return;
             
             const pushToTalkKey = game.settings.get('folkengames-vai', 'pushToTalkKey');
-            if (event.code === `Key${pushToTalkKey.toUpperCase()}` || 
-                event.code === pushToTalkKey) {
+            if (event.code === `Key${pushToTalkKey.toUpperCase()}`) {
                 event.preventDefault();
+                console.log('VAI: Stopping listening...');
                 this.stopListening();
             }
         });
 
         // Listen for Foundry VTT hooks
-        Hooks.on('ready', () => {
-            this.initialize();
-        });
-
         Hooks.on('renderChatMessage', (message, html, data) => {
             this.handleChatMessage(message, html, data);
         });

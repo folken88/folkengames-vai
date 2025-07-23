@@ -64,8 +64,8 @@ class VAICore {
      */
     async initializeSettings() {
         // Register settings if not already registered
-        if (!game.settings.settings.has('vai.pushToTalkKey')) {
-            game.settings.register('vai', 'pushToTalkKey', {
+        if (!game.settings.settings.has('folkengames-vai.pushToTalkKey')) {
+            game.settings.register('folkengames-vai', 'pushToTalkKey', {
                 name: 'Push-to-Talk Key',
                 hint: 'Key to hold while speaking commands',
                 scope: 'client',
@@ -76,8 +76,8 @@ class VAICore {
             });
         }
 
-        if (!game.settings.settings.has('vai.enabled')) {
-            game.settings.register('vai', 'enabled', {
+        if (!game.settings.settings.has('folkengames-vai.enabled')) {
+            game.settings.register('folkengames-vai', 'enabled', {
                 name: 'Enable VAI',
                 hint: 'Enable or disable the VAI system',
                 scope: 'client',
@@ -88,8 +88,8 @@ class VAICore {
             });
         }
 
-        if (!game.settings.settings.has('vai.llmProvider')) {
-            game.settings.register('vai', 'llmProvider', {
+        if (!game.settings.settings.has('folkengames-vai.llmProvider')) {
+            game.settings.register('folkengames-vai', 'llmProvider', {
                 name: 'AI Provider',
                 hint: 'Choose your preferred AI provider',
                 scope: 'client',
@@ -106,8 +106,8 @@ class VAICore {
             });
         }
 
-        if (!game.settings.settings.has('vai.llmApiKey')) {
-            game.settings.register('vai', 'llmApiKey', {
+        if (!game.settings.settings.has('folkengames-vai.llmApiKey')) {
+            game.settings.register('folkengames-vai', 'llmApiKey', {
                 name: 'AI API Key',
                 hint: 'Your API key for the selected AI provider',
                 scope: 'client',
@@ -118,8 +118,8 @@ class VAICore {
             });
         }
 
-        if (!game.settings.settings.has('vai.voiceRate')) {
-            game.settings.register('vai', 'voiceRate', {
+        if (!game.settings.settings.has('folkengames-vai.voiceRate')) {
+            game.settings.register('folkengames-vai', 'voiceRate', {
                 name: 'Voice Rate',
                 hint: 'Speed of text-to-speech feedback',
                 scope: 'client',
@@ -131,8 +131,8 @@ class VAICore {
             });
         }
 
-        if (!game.settings.settings.has('vai.confidenceThreshold')) {
-            game.settings.register('vai', 'confidenceThreshold', {
+        if (!game.settings.settings.has('folkengames-vai.confidenceThreshold')) {
+            game.settings.register('folkengames-vai', 'confidenceThreshold', {
                 name: 'Confidence Threshold',
                 hint: 'Minimum confidence level for command recognition',
                 scope: 'client',
@@ -178,7 +178,7 @@ class VAICore {
         document.addEventListener('keydown', (event) => {
             if (!this.isEnabled || !this.isInitialized) return;
             
-            const pushToTalkKey = game.settings.get('vai', 'pushToTalkKey');
+            const pushToTalkKey = game.settings.get('folkengames-vai', 'pushToTalkKey');
             if (event.code === `Key${pushToTalkKey.toUpperCase()}` || 
                 event.code === pushToTalkKey) {
                 event.preventDefault();
@@ -189,7 +189,7 @@ class VAICore {
         document.addEventListener('keyup', (event) => {
             if (!this.isEnabled || !this.isInitialized) return;
             
-            const pushToTalkKey = game.settings.get('vai', 'pushToTalkKey');
+            const pushToTalkKey = game.settings.get('folkengames-vai', 'pushToTalkKey');
             if (event.code === `Key${pushToTalkKey.toUpperCase()}` || 
                 event.code === pushToTalkKey) {
                 event.preventDefault();
@@ -263,7 +263,7 @@ class VAICore {
             let intent = this.intentParser.parseIntent(speechText);
             
             // Check confidence threshold
-            const confidenceThreshold = game.settings.get('vai', 'confidenceThreshold');
+            const confidenceThreshold = game.settings.get('folkengames-vai', 'confidenceThreshold');
             if (intent.confidence < confidenceThreshold) {
                 // Try LLM disambiguation if available
                 if (this.llmIntegration.isAvailable()) {
@@ -395,10 +395,10 @@ class VAICore {
             listening: this.isListening,
             compatibility: this.checkCompatibility(),
             settings: {
-                pushToTalkKey: game.settings.get('vai', 'pushToTalkKey'),
-                llmProvider: game.settings.get('vai', 'llmProvider'),
-                voiceRate: game.settings.get('vai', 'voiceRate'),
-                confidenceThreshold: game.settings.get('vai', 'confidenceThreshold')
+                pushToTalkKey: game.settings.get('folkengames-vai', 'pushToTalkKey'),
+                llmProvider: game.settings.get('folkengames-vai', 'llmProvider'),
+                voiceRate: game.settings.get('folkengames-vai', 'voiceRate'),
+                confidenceThreshold: game.settings.get('folkengames-vai', 'confidenceThreshold')
             }
         };
     }

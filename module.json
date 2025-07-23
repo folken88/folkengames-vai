@@ -55,7 +55,7 @@
   },
   "url": "https://github.com/folken88/folkengames-vai",
   "manifest": "https://raw.githubusercontent.com/folken88/folkengames-vai/main/module.json",
-  "download": "https://github.com/folken88/folkengames-vai/releases/latest/download/module.zip",
+  "download": "https://github.com/folken88/folkengames-vai/archive/main.zip",
   "license": "MIT",
   "readme": "README.md",
   "changelog": "CHANGELOG.md"

@@ -36,6 +36,26 @@
       "path": "lang/en.json"
     }
   ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "5.0.0",
+          "verified": "7.0.0"
+        }
+      },
+      {
+        "id": "pf1",
+        "type": "system",
+        "compatibility": {
+          "minimum": "0.8.0",
+          "verified": "0.8.0"
+        }
+      }
+    ]
+  },
   "url": "https://github.com/folken88/folkengames-vai",
   "manifest": "https://raw.githubusercontent.com/folken88/folkengames-vai/main/module.json",
   "download": "https://github.com/folken88/folkengames-vai/releases/latest/download/module.zip",

@@ -12,11 +12,8 @@
   ],
   "compatibility": {
     "minimum": "11",
-    "verified": "11",
-    "maximum": "11"
+    "verified": "13"
   },
-  "minimumCoreVersion": "11",
-  "compatibleCoreVersion": "11",
   "esmodules": [
     "scripts/vai-core.js",
     "scripts/speech-recognition.js",

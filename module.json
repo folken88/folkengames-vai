@@ -6,17 +6,8 @@
     "author": "Folkengames",
     "minimumCoreVersion": "11",
     "compatibleCoreVersion": "11",
-    "systems": ["pf2e", "pf1"],
     "scripts": [
-        "scripts/vai-core.js",
-        "scripts/speech-recognition.js",
-        "scripts/intent-parser.js",
-        "scripts/action-executor.js",
-        "scripts/tts-manager.js",
-        "scripts/llm-integration.js",
-        "scripts/context-manager.js",
-        "scripts/learning-system.js",
-        "scripts/character-manager.js"
+        "scripts/vai-core.js"
     ],
     "styles": ["styles/vai.css"],
     "languages": [
@@ -25,11 +16,5 @@
             "name": "English",
             "path": "lang/en.json"
         }
-    ],
-    "url": "https://github.com/folkengames/vai",
-    "manifest": "https://raw.githubusercontent.com/folkengames/vai/main/module.json",
-    "download": "https://github.com/folkengames/vai/releases/latest/download/module.zip",
-    "license": "MIT",
-    "readme": "README.md",
-    "changelog": "CHANGELOG.md"
+    ]
 } 

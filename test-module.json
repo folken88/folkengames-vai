@@ -1,0 +1,9 @@
+{
+    "name": "folkengames-vai-test",
+    "title": "VAI Test Module",
+    "description": "Test module to verify FoundryVTT detection",
+    "version": "1.0.0",
+    "author": "Folkengames",
+    "minimumCoreVersion": "11",
+    "compatibleCoreVersion": "11"
+} 

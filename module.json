@@ -1,28 +1,28 @@
 {
-    "name": "folkengames-vai",
-    "title": "Verbal Action Intelligence",
-    "description": "Voice-controlled assistant for blind Foundry VTT players",
-    "version": "1.0.0",
-    "author": "Folkengames",
-    "minimumCoreVersion": "11",
-    "compatibleCoreVersion": "11",
-    "scripts": [
-        "scripts/vai-core.js",
-        "scripts/speech-recognition.js",
-        "scripts/intent-parser.js",
-        "scripts/action-executor.js",
-        "scripts/tts-manager.js",
-        "scripts/llm-integration.js",
-        "scripts/context-manager.js",
-        "scripts/learning-system.js",
-        "scripts/character-manager.js"
-    ],
-    "styles": ["styles/vai.css"],
-    "languages": [
-        {
-            "lang": "en",
-            "name": "English",
-            "path": "lang/en.json"
-        }
-    ]
+  "name": "vai-module",
+  "title": "Verbal Action Intelligence",
+  "description": "Voice-controlled assistant for blind Foundry VTT players",
+  "version": "1.0.0",
+  "author": "Folkengames",
+  "minimumCoreVersion": "11",
+  "compatibleCoreVersion": "11",
+  "scripts": [
+    "scripts/vai-core.js",
+    "scripts/speech-recognition.js",
+    "scripts/intent-parser.js",
+    "scripts/action-executor.js",
+    "scripts/tts-manager.js",
+    "scripts/llm-integration.js",
+    "scripts/context-manager.js",
+    "scripts/learning-system.js",
+    "scripts/character-manager.js"
+  ],
+  "styles": ["styles/vai.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ]
 } 
